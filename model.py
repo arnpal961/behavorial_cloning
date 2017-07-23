@@ -243,7 +243,7 @@ try:
                                          validation_data=validation_generator,
                                          validation_steps=len(X_validation)/BATCH_SIZE,
                                          epochs=EPOCHS)
-except K.tf.errors.ResourceExhaustedError:
+if K.tf.errors.ResourceExhaustedError:
     print('Your device is running out of memory . Try using a lower batch size.')
 
 
