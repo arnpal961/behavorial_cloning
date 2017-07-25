@@ -37,16 +37,30 @@ These project repository consists of 6 main files .
  * Tensorflow version 1.2.1 is used. (Gpu version and compiled from source)
  * keras version 2.0.6 is used. (keras version 1.x.x will not work)
  * GEFORCE GTX 1050 gpu with memory 4 GB is used for training . (Cuda compute capability of 6.1)
+
+**Usage**
+
+* Suppose the data directory named 'data' is in your working directory and contains the 'IMG' directory 
+  and 'driving_log.csv' file Want to train it with alexnet architecture. Enter the command in a terminal.
+         python model.py --model_arch='alexnet' --retrain=False --data_dir=data --batch_size=32
+
+* After successfull training, let the model has been saved in working directory named 'model.h5' and 
+  to drive the car in autonomous mode and caputure the run in a 'run1' directory,try it in a terminal
+         python drive.py model.h5 run1
+
+* For making video from the directory 'run1',try it in a terminal
+         python video.py run1 --fps=48
  
  **Data Collection :**
   
   * The obvious approach for training deep neural network to work better is to train it on more data.
   * Around 153k images have been used for training .
-  * Images are from both two tracks with 70:30 proportion.
+  * Images are from both two tracks with 70:30(track1:track2) proportion.
   * All center,left,right images are used .
   * And images were flipped for data augmentation .
   
   **Data Exploration and some preprocessing :**
+
   
   **Model Specification :**
   Here I mainly tried 2 different models for training.
@@ -58,3 +72,5 @@ These project repository consists of 6 main files .
   
   **ALEXNET ARCHITECTURE :**
   ![image:](./resources/cnn-architecture-624x890.png)
+
+
