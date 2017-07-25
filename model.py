@@ -11,9 +11,6 @@ def parse_arguments():
     #Give the model architecture name , default is "alexnet"
     parser.add_argument('--model_arch',type=str,default='alexnet',help="Either 'nvidia' architecture Or 'alexnet' arch")
     
-    #Want to retrain or not,default is false
-    parser.add_argument('--retrain',type=bool,default=False,help='Fresh train Or Retrain. Optional')
-    
     #If retrain then give the path of saved model path,default is the working directory
     parser.add_argument('--saved_model',type=str,default='.',help='If want to retrain then must give file path in hdf')
     
@@ -35,11 +32,10 @@ def parse_arguments():
 
 
 arg_parser = parse_arguments()
-args = parser.parse_args()
+args = arg_parser.parse_args()
 
 #Retreiving the parameters from the command line arguments
 activation = args.activation
-RETRAIN = args.retrain
 EPOCHS = args.epochs
 BATCH_SIZE = args.batch_size
 DATA_DIR = args.datadir
@@ -138,8 +134,6 @@ samples.right = list(map(path_remover,samples.right))
 
 print(samples.head())
 
-def correction_factor():
-    pass
 
 steering_center = samples.steering
 steering_left = steering_center + CF 
@@ -246,7 +240,7 @@ class ModelArch(object):
         """
         model = Sequential()
 
-        model.add(Cropping2D(cropping=((65,45),(0,0)),
+        model.add(Cropping2D(cropping=((65,40),(0,0)),
                              input_shape=(160,320,3)))
         model.add(Lambda(lambda x:K.tf.image.resize_images(x,(66,200),
                                                            method=K.tf.image.ResizeMethod.NEAREST_NEIGHBOR)))
@@ -326,10 +320,7 @@ class ModelArch(object):
 #Initializing the adam optimizer with learning rate and decay parameter
 adam = Adam(lr=LR,decay=DECAY)
 
-#If want to retrain then there is no need to create an instance of ModelArch() class.
-if RETRAIN == True:
-    model = load_model(saved_model_path,compile=True)
-elif model_arch == 'nvidia':
+if model_arch == 'nvidia':
     model = ModelArch('nvidia')
     model = model.nvidia_arch(activation)
     model.compile(loss='mse', optimizer=adam)
@@ -341,19 +332,14 @@ elif model_arch == 'alexnet':
 
 print(model.summary())
 
-#If for larger batch size the device is running out of mememory
-#Then it stops the program.
-try:
-    #creating a history object for visualization later 
-    history_object = model.fit_generator(train_generator,
-                                         steps_per_epoch=len(X_train)/BATCH_SIZE,
-                                         callbacks=[model_checkpt,tensor_board],
-                                         validation_data=validation_generator,
-                                         validation_steps=len(X_validation)/BATCH_SIZE,
-                                         epochs=EPOCHS)
-if K.tf.errors.ResourceExhaustedError:
-    print('Your device is running out of memory . Try using a lower batch size.')
-    break
+#creating a history object for visualization later 
+history_object = model.fit_generator(train_generator,
+                                     steps_per_epoch=len(X_train)/BATCH_SIZE,
+                                     callbacks=[model_checkpt,tensor_board],
+                                     validation_data=validation_generator,
+                                     validation_steps=len(X_validation)/BATCH_SIZE,
+                                     epochs=EPOCHS)
+
 #For tensor board visualization go to terminal and type $ tensorboard --logdir=$[PATH_TO_YOUR_LOGDIR]
 #Saving the model
 model.save('model'+'_'+model_arch+'_'+str(EPOCHS)+'.h5')
