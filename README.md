@@ -75,7 +75,7 @@ These project repository consists of 6 main files .
   
   ![imaage](./resources/right_2017_07_21_00_55_09_924.jpg)
   
-  **Model Specification :**
+  ## Model Specification :
   Here I mainly tried 2 different models for training.
   
   [**NVIDIA MODEL ARCHITECTURE :**](https://devblogs.nvidia.com/parallelforall/deep-learning-self-driving-cars/)
