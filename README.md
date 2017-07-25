@@ -75,9 +75,6 @@ These project repository consists of 6 main files .
   
   ![imaage](./resources/right_2017_07_21_00_55_09_924.jpg)
   
-  **Data Exploration and some preprocessing :**
-  Data Exploration and processing steps are provided in the Ipython Notebook.
-  
   **Model Specification :**
   Here I mainly tried 2 different models for training.
   
@@ -315,9 +312,10 @@ ImageSource:Udacity
   works better for me . **The model.h5 file is the trained model using alexnet structure.**
 * I have tried both 'relu' and 'elu' activation function but 'elu' gives better convergence properties in 
   these case than 'relu'. ELU stands for exponential linear unit .
-  elu:
-  f(x,a) = a(exp(x)-1) for x < 0
-         = x for x>0 or x=0
+  
+      elu:
+          f(x,a) = a(exp(x)-1) for x < 0
+                 = x for x>0 or x=0
  * A discussion on ELU networks can be found on http://image-net.org/challenges/posters/JKU_EN_RGB_Schwarz_poster.pdf 
  
  * The model is trained for 10 epochs with batch size 128 and train_test_split() function from sklearn is used for
