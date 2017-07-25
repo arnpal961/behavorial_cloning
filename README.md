@@ -295,7 +295,8 @@ ImageSource: Nvidia website
 ImageSource:Udacity
 
 ### Discussions:
-*```path_remover()``` : This function is introduced because the simulator writes the whole directory path to the 
+
+* ```path_remover()``` : This function is introduced because the simulator writes the whole directory path to the 
   image names in case of moving the directory to other locations it may raise ```FileNotFoundError```.
 * ```flipped()```: This function flipped the image input through vertical axis.
 * For images taken from left camera a correction factor of 0.27 and for right camera  -0.27 is added to the measure of 
@@ -303,8 +304,8 @@ ImageSource:Udacity
 * Track one contains most of left turns so when there is a right turn it will not work well so flipping the images is 
   very powerful technique. 
 * Here I insert ```flipped_ ``` phrase to every image names so that the generator function can understand when to 
-  flip the image . When image file name starts with ```flip_``` then simply the generator function read the same 
-  image with ```flip_``` omitted  and then flipped it through flipped() and the corresponding steering angles also 
+  flip the image . When image file name starts with ```flipped_``` then simply the generator function read the same 
+  image with ```flipped_``` omitted  and then flipped it through flipped() and the corresponding steering angles also 
   being   multiplied by -1.
 * The generator() is used here mainly for the memory limitation of our local or remote machines . It will generate the 
   train data of specified batch size .
