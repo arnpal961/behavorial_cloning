@@ -43,7 +43,7 @@ These project repository consists of 6 main files .
 * Suppose the data directory named 'data' is in working directory and contains the 'IMG' directory 
   and 'driving_log.csv' file then to train it with alexnet architecture,try it in a terminal.
   
-         python model.py --model_arch='alexnet' --data_dir='data' --batch_size=32
+         python model.py --model_arch='alexnet' --datadir='data' --batch_size=32
 
 * After successfull training, let the model has been saved in working directory named 'model.h5' and 
   to drive the car in autonomous mode and caputure the run in a 'run1' directory,try it in a terminal
