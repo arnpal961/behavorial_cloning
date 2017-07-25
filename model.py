@@ -11,10 +11,8 @@ def parse_arguments():
     #Give the model architecture name , default is "alexnet"
     parser.add_argument('--model_arch',type=str,default='alexnet',help="Either 'nvidia' architecture Or 'alexnet' arch")
     
-    #If retrain then give the path of saved model path,default is the working directory
-    parser.add_argument('--saved_model',type=str,default='.',help='If want to retrain then must give file path in hdf')
     
-    #If not retrain then give the path of the data directory,default is the working directory
+    #Give the path of the data directory,default is the working directory
     parser.add_argument('--datadir',type=str,default='.',help='Specify your data path')
     
     #Specify the size of validation set,default is 0.2
